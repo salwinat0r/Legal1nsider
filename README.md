@@ -4,14 +4,14 @@ Simplifying proof-reading Legal documents using AI!
 
 ## Table of Contents
 - [Background](#background)
-- [Installation](#installation)
+- [Installation and Usage](#installation)
 - [API](#api)
 
 
 <h2>Background</h2>
 Proofreading legal documents manually is a challenging and time-consuming task due to their complexity. However, AI-powered tools have significantly eased this burden. They enhance efficiency and ensure adherence to legal writing standards. Combining AI with human expertise improves the accuracy of proofreading legal documents, saving time and effort in the process.
 
-<h2>Installation</h2>
+<h2>Installation and Usage</h2>
 To install the necessary dependencies for this project, run the following command:
 
 ```python
