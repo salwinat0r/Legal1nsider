@@ -2,7 +2,6 @@ import re
 import docx
 from docx import Document
 import openai
-from check import missing_clause
 
 
 openai.api_key = open("key.txt", 'r').read().strip('\n')
@@ -10,7 +9,7 @@ openai.api_key = open("key.txt", 'r').read().strip('\n')
 def generate_response(prompt):
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
     messages=[
-        {"role": "system", "content": "You are a professional Insurance Agent in India"},
+        {"role": "system", "content": "You are legal document assistant"},
         {"role": "user", "content": prompt},
     ])
     response = completion["choices"][0]["message"]['content']

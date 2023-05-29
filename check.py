@@ -11,9 +11,10 @@ def missing_clause(clause, test_clause):
 		data1 = f.read()
 	test = json.loads(data1)
 
-	for item in js:
-		if item not in test:
-			return item['clause_name']
+	if js!=test:
+		for item in js:
+			if item not in test:
+				return item['clause_name']
 
 # def missing_clause():
 	
