@@ -1,8 +1,9 @@
 from fastapi import FastAPI, UploadFile, File
 from docx import Document
+import json
 import re
 from collections import Counter
-from gen_engine import extract_clauses_from_document
+from gen_engine import extract_clauses_from_document, extract_title
 
 app = FastAPI(title = "Clause Extraction")
 
@@ -13,10 +14,14 @@ async def upload_document(file: UploadFile = File(...)):
     with open(file_path, "wb") as f:
         f.write(await file.read())
 
+
+    # extract title
+    title = extract_title(file_path)
+
     extracted_clauses = extract_clauses_from_document(file_path)
     # Extract clauses from the document
     clause_counter = Counter([clause["clause_name"] for clause in extracted_clauses])
-    most_common_clauses = clause_counter.most_common(5)  # Get the top 5 most common clauses
+    most_common_clauses = clause_counter.most_common(20)  # Get the top 5 most common clauses
 
     response = []
     for clause_name, count in most_common_clauses:
@@ -26,6 +31,8 @@ async def upload_document(file: UploadFile = File(...)):
                 clause_number = clause["clause_number"]
                 break
         response.append({"clause_name": clause_name, "clause_number": clause_number})
+        with open('test_clauses.txt', 'w') as fp:
+            json.dump(response, fp)
 
-    return {"most_common_clauses": response,
-            "clauses": extracted_clauses}
+    return {"title": title, "most_common_clauses": response}
+

@@ -1,6 +1,21 @@
 import re
 import docx
 from docx import Document
+import openai
+from check import missing_clause
+
+
+openai.api_key = open("key.txt", 'r').read().strip('\n')
+
+def generate_response(prompt):
+    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are a professional Insurance Agent in India"},
+        {"role": "user", "content": prompt},
+    ])
+    response = completion["choices"][0]["message"]['content']
+    return response
+
 
 def extract_clauses_from_document(doc_path):
     doc = Document(doc_path)
@@ -32,3 +47,21 @@ def extract_clauses_from_document(doc_path):
         clauses.append({"clause_number": clause_number, "clause_name": clause_name.strip()})
 
     return clauses
+
+def extract_title(file_path):
+    doc = Document(file_path)
+    text = ""
+    for paragraph in doc.paragraphs:
+        text += paragraph.text + "\n"
+    lines = text.split('\n\n')
+
+# Search for a line that contains typical title formatting
+    for line in lines:
+        # Remove leading and trailing whitespace from the line
+        line = line.strip()
+
+        # Check if the line meets the criteria for a title (e.g., length, capitalization, etc.)
+        if len(line) > 0 and line.isupper():
+            return line
+            break
+    return None
