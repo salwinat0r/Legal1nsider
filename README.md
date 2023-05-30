@@ -110,6 +110,6 @@ and open this localhost URL on your browser `http://127.0.0.1:8000/docs`. This w
 
 - The files `clauses.txt` and `test_clauses.txt` clauses are extracted for the file  `SampleDocs\Testing\Draft SHA_Belita_11082015_Clean_Execution Version (1).docx`.
 
-- Expand the `/upload-document` API route, click Try it Out and upload the above document.
+- On the Swagger UI kit, expand the `/upload-document` API route, click Try it Out and upload the above document.
 
 - Now do the same for `/generate_clause` API route and upload the same document to generate a clause definition.
