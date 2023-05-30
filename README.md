@@ -4,20 +4,20 @@ Simplifying proof-reading Legal documents using AI!
 
 ## Table of Contents
 - [Background](#background)
-- [Installation and Usage](#installation)
+- [Installation](#installation)
 - [API](#api)
+- [Usage](#usage)
 
 
 <h2>Background</h2>
 Proofreading legal documents manually is a challenging and time-consuming task due to their complexity. However, AI-powered tools have significantly eased this burden. They enhance efficiency and ensure adherence to legal writing standards. Combining AI with human expertise improves the accuracy of proofreading legal documents, saving time and effort in the process.
 
-<h2>Installation and Usage</h2>
+<h2>Installation</h2>
 To install the necessary dependencies for this project, run the following command:
 
 ```python
 pip install -r requirements.txt
 ```
-
 Extract the clauses from a Word document and write them in two files
 
 ```python
@@ -92,3 +92,24 @@ This route will return a suggested definition for the missing clause from the up
   "response": "\"Drag Along Notice Clause:\n\nIf the company receives a bona fide offer to purchase all of the Company's shares from a third party, the majority shareholder(s) shall have the right to require the minority shareholder(s) to participate in the sale. Such request must be made in writing, stating the terms and conditions of the offer and providing the minority shareholder(s) with thirty (30) days' notice. \n\nUpon receipt of such notice, the minority shareholder(s) shall be obligated to sell their shares on the same terms and conditions as the majority shareholder(s), including any provisions relating to representations, warranties, covenants, and indemnification. \""
 }
 ```
+
+<h2> Usage </h2>
+
+Firstly, copy your OPENAI API key to a txt file to run the ChatGPT API
+
+```bash
+touch key.txt
+```
+
+Now run,
+
+```bash
+uvicorn main:app --reload
+```
+and open this localhost URL on your browser `http://127.0.0.1:8000/docs`. This will open the Swagger UI kit for FastAPI backend.
+
+The files `clauses.txt` and `test_clauses.txt` clauses extracted for the file  `SampleDocs\Testing\Draft SHA_Belita_11082015_Clean_Execution Version (1).docx`.
+
+Expand the `/upload-document` API route, click Try it Out and upload the above document.
+
+Now do the same for `/generate_clause` API route and upload the same document to generate a clause definition.

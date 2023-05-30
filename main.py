@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from docx import Document
 import json
 import re
+import os
 from collections import Counter
 from gen_engine import extract_clauses_from_document, extract_title, generate_response
 from check import missing_clause
@@ -12,6 +13,9 @@ app = FastAPI(title = "Clause Extraction")
 async def upload_document(file: UploadFile = File(...)):
     # Save the uploaded file
     file_path = f"output_docs/{file.filename}"
+    output_dir = os.path.dirname(file_path)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     with open(file_path, "wb") as f:
         f.write(await file.read())
 
@@ -40,8 +44,12 @@ async def upload_document(file: UploadFile = File(...)):
 async def generate_clause(file: UploadFile = File(...)):
     # Save the uploaded file
     file_path = f"output_docs/{file.filename}"
+    output_dir = os.path.dirname(file_path)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     with open(file_path, "wb") as f:
         f.write(await file.read())
+        
     title = extract_title(file_path)
     clause = missing_clause("clauses.txt", "test_clauses.txt")
     prompt = f"Generate a {clause} clause for a {title} document"
